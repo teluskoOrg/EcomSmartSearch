@@ -163,10 +163,18 @@ const Navbar = ({ onSelectCategory }) => {
               </a>
             </li>
 
-
-
-
+            <li className="nav-item">
+              <a className="nav-link" href="/askai" onClick={handleLinkClick}>
+                Ask AI
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/orders" onClick={handleLinkClick}>
+                Orders
+              </a>
+            </li>
           </ul>
+        
 
           {/* Theme toggle button commented out in original */}
           {/* <button className="btn btn-sm me-2" onClick={() => toggleTheme()}>

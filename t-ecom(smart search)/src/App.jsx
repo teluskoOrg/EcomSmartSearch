@@ -7,7 +7,8 @@ import Product from "./components/Product";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppProvider } from "./Context/Context";
 import UpdateProduct from "./components/UpdateProduct";
-
+import AskAi from "./components/AskAI";
+import Order from "./components/Order";
 import SearchResults from "./components/SearchResults";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -41,6 +42,8 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/update/:id" element={<UpdateProduct />} />
             <Route path="/search-results" element={<SearchResults />} />
+            <Route path="/askai" element={<AskAi />} />
+            <Route path="/orders" element={<Order />} />
           </Routes>
         </div>
       </BrowserRouter>
