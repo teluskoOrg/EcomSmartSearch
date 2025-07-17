@@ -59,6 +59,46 @@ public class OrderService {
             // Deduct stock quantity
             product.setStockQuantity(product.getStockQuantity() - itemReq.quantity());
 
+
+            // 2. Save updated product
+            productRepo.save(product); // make sure this line is included
+
+            String filter = String.format("productId == '%s'", String.valueOf(product.getId()));
+            vectorStore.delete(filter);
+
+
+            // 4. Rebuild the content for embedding
+            String updatedContent = String.format("""
+                             Product Name: %s
+                             Description: %s
+                             Brand: %s
+                             Category: %s
+                             Price: %.2f
+                             Release Date: %s
+                             Available: %s
+                             Stock: %d
+                            """,
+                    product.getName(),
+                    product.getDescription(),
+                    product.getBrand(),
+                    product.getCategory(),
+                    product.getPrice(),
+                    product.getReleaseDate(),
+                    product.isProductAvailable(),
+                    product.getStockQuantity()
+            );
+
+            // 5. Create a new vector document
+            Document updatedDoc = new Document(
+                    UUID.randomUUID().toString(),
+                    updatedContent,
+                    Map.of("productId", String.valueOf(product.getId()))
+            );
+
+            // 6. Add updated document to vector store
+            vectorStore.add(List.of(updatedDoc));
+
+
             // Build OrderItem and add to list
             OrderItem item = OrderItem.builder()
                     .product(product)
